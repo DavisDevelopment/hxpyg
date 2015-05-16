@@ -5,6 +5,7 @@ import python.Tuple.Tuple2;
 import python.Tuple.*;
 
 import pygame.Rect;
+import pygame.Color;
 
 @:pythonImport('pygame', 'Surface')
 extern class NSurface {
@@ -12,7 +13,7 @@ extern class NSurface {
 	function new(dimensions:Tuple<Int>, ?flags:Int, ?depth:Int, ?masks:Dynamic):Void;
 
 	/* Draw another Surface onto [this] One */
-	function blit(source:Surface, dest:Tuple<Int>, ?area:Rect, ?special_flags:Int):Void;
+	function blit(source:Surface, dest:Rect, ?area:Rect, ?special_flags:Int):Void;
 
 	/* Create a new copy of [this] Surface, but with a different pixel format */
 	function convert(?arg1:Dynamic, ?flags:Int):Surface;
@@ -24,7 +25,7 @@ extern class NSurface {
 	function copy():Surface;
 
 	/* Fill a certain portion of [this] Surface with a specified Color */
-	function fill(color:Tuple<Int>, ?rect:Rect, ?special_flags:Int):Void;
+	function fill(color:Color, ?rect:Rect, ?special_flags:Int):Void;
 
 	/* Scroll the Surface */
 	function scroll(?dx:Int, ?dy:Int):Void;
@@ -44,6 +45,3 @@ extern class NSurface {
 	/* Get the Size of [this] Surface */
 	function get_size():Tuple2<Int, Int>;
 }
-
-/* Placeholder Type until pygame.Color is implemented */
-private typedef Color = Dynamic;
