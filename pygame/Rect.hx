@@ -38,6 +38,18 @@ abstract Rect (NRect) from NRect {
 	public inline function toRectangle():Rectangle {
 		return new Rectangle(this.x, this.y, this.w, this.h);
 	}
+
+	/* From tannus.geom.Rectangle */
+	@:from
+	public static inline function fromRectangle(r : Rectangle):Rect {
+		return new Rect(i(r.x), i(r.y), i(r.w), i(r.h));
+	}
+
+	/* From Array<Number> */
+	@:from
+	public static inline function fromArray<T : Float>(a : Array<T>):Rect {
+		return fromRectangle(Rectangle.fromArray(a));
+	}
 }
 
 @:pythonImport('pygame', 'Rect')
