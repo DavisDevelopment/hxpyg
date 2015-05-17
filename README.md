@@ -13,6 +13,7 @@
 - pygame.Color: Extern for pygame.Color class
 - pygame.Rect: Extern for pygame.Rect class
 - pygame.Time: Extern for pygame.time module
+- pygame.Transform: Extern for pygame.transform module
 - pygame.NSurface: Extern for pygame.Surface class
 - pygame.Surface: Abstract around pygame.NSurface, which adds useful fields/methods
 - pygame.Events: Extern for pygame.event module
