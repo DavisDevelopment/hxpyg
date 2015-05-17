@@ -1,0 +1,17 @@
+{
+    "releasenote": "Initial Release",
+    "license": "Apache",
+    "tags": [
+        "python",
+        "pygame",
+        "hxpyg",
+        "tannus"
+    ],
+    "url": "http://github.com/DavisDevelopment/hxpyg",
+    "version": "0.0.5",
+    "name": "hxpyg",
+    "description": "Haxe externs and utilities for working with pygame",
+    "contributors": [
+        "DavisDevelopment"
+    ]
+}
