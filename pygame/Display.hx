@@ -32,6 +32,9 @@ extern class Display {
 	/* Set the Window title */
 	static function set_caption(title:String, ?icontitle:String):Void;
 
+	/* Set the Window Icon */
+	static function set_icon(icon : Surface):Void;
+
 	/* Determine whether [this] Window is active */
 	static function get_active():Bool;
 }
