@@ -56,4 +56,7 @@ extern class NSurface {
 
 	/* Check whether [this] Surface is currently locked */
 	function get_locked():Bool;
+
+	/* Return a new sub-surface */
+	function subsurface(rect : Rect):NSurface;
 }
