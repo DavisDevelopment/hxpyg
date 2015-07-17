@@ -44,4 +44,16 @@ extern class NSurface {
 
 	/* Get the Size of [this] Surface */
 	function get_size():Tuple2<Int, Int>;
+
+	/* Get a Buffer to the pixels of [this] Surface */
+	function get_buffer():Dynamic;
+
+	/* Lock [this] Surface for pixel access */
+	function lock():Void;
+
+	/* Unlock [this] Surface from pixel access */
+	function unlock():Void;
+
+	/* Check whether [this] Surface is currently locked */
+	function get_locked():Bool;
 }
