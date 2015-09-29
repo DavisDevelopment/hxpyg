@@ -7,6 +7,7 @@ import pygame.Clock;
 
 import pygame.hxpyg.Surface;
 import pygame.hxpyg.SurfaceAccessor;
+import pygame.hxpyg.events.MouseEvent;
 
 import python.Tuple;
 
@@ -14,6 +15,7 @@ import tannus.geom.Rectangle;
 import tannus.io.Signal;
 import tannus.io.EventDispatcher;
 import tannus.graphics.Color;
+import tannus.internal.CompileTime in Ct;
 
 class Window extends EventDispatcher implements SurfaceAccessor {
 	/* Constructor Function */
@@ -43,7 +45,8 @@ class Window extends EventDispatcher implements SurfaceAccessor {
 	private inline function __init():Void {
 		addSignals([
 			'keydown',
-			'keyup'
+			'keyup',
+			'click'
 		]);
 	}
 
@@ -79,6 +82,10 @@ class Window extends EventDispatcher implements SurfaceAccessor {
 						'mods': mods
 					});
 
+				/* User has Clicked */
+				case Event.MouseUp(pos, button):
+					dispatch('click', new MouseEvent('click', pos, button));
+
 				default:
 					null;
 			}
@@ -111,7 +118,7 @@ class Window extends EventDispatcher implements SurfaceAccessor {
 
 			//- update the display
 			update();
-			clock.tick( 30 );
+			clock.tick( 20 );
 		}
 	}
 
