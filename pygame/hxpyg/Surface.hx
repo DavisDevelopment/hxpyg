@@ -3,6 +3,7 @@ package pygame.hxpyg;
 import tannus.geom.Rectangle;
 import tannus.geom.Point;
 import tannus.graphics.Color;
+import tannus.ds.EitherType in Either;
 
 import pygame.Surface in Surf;
 import pygame.PixelArray;
@@ -15,8 +16,15 @@ import pygame.hxpyg.SurfaceDrawable;
 @:allow(pygame.hxpyg.SurfaceAccessor)
 class Surface {
 	/* Constructor Function */
-	public function new(comp : Surf):Void {
-		component = comp;
+	public function new(comp : Either<Surface, Surf>):Void {
+		switch (comp.type) {
+			case Left(s):
+				component = s.component;
+
+			case Right(c):
+				component = c;
+		}
+
 		transform = new Transformer(this);
 	}
 
@@ -27,6 +35,13 @@ class Surface {
 	  */
 	public inline function clone():Surface {
 		return new Surface(component.copy());
+	}
+
+	/**
+	  * Draw some "drawable" object onto [this] Surface
+	  */
+	public function draw(item : SurfaceDrawable):Void {
+		item.drawToSurface( this );
 	}
 
 	/**
@@ -83,6 +98,18 @@ class Surface {
 	  */
 	public var height(get, never):Int;
 	private inline function get_height() return component.height;
+
+	/**
+	  * The Rectangle [this] Surface occupies
+	  */
+	public var rect(get, set):Rectangle;
+	private function get_rect():Rectangle {
+		return new Rectangle(0, 0, width, height);
+	}
+	private function set_rect(r : Rectangle):Rectangle {
+		transform.resize(r.w, r.h);
+		return rect;
+	}
 
 /* === Instance Fields === */
 
