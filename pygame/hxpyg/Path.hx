@@ -23,7 +23,7 @@ class Path implements SurfaceAccessor {
 		ctx = c;
 		surf = c.c;
 		cached = false;
-		stack = new ActionStack();
+		states = new Array();
 		state = new PathState( this );
 	}
 
@@ -51,6 +51,45 @@ class Path implements SurfaceAccessor {
 	public inline function drawLine(line : Line):Void {
 		moveTo(line.start.x, line.start.y);
 		lineTo(line.end.x, line.end.y);
+	}
+
+	/**
+	  * Draw an Array of Lines
+	  */
+	public function drawLines(lines : Array<Line>):Void {
+		for (l in lines)
+			drawLine( l ); }
+
+	/**
+	  * Draw Vertices
+	  */
+	public function vertices(verts : Vertices):Void {
+		drawLines(verts.toLines());
+	}
+
+	/**
+	  * Draw a Shape
+	  */
+	public function shape(s : Shape):Void {
+		vertices( s.getVertices() );
+	}
+
+/* === State Handling Methods === */
+
+	/**
+	  * "save" the current State
+	  */
+	public function save():Void {
+		states.push(state.clone());
+	}
+
+	/**
+	  * "restore" a saved State
+	  */
+	public function restore():Void {
+		var saved:Null<PathState> = states.pop();
+		assert(saved != null, 'Error: Nothing to restore!');
+		state = saved;
 	}
 
 /* === Computed Instance Fields === */
@@ -96,7 +135,7 @@ class Path implements SurfaceAccessor {
 	private var cached : Bool;
 
 	/* The Stack of Actions being taken */
-	private var stack : ActionStack;
+	private var states : Array<PathState>;
 
 	/* The State of [this] Path */
 	private var state : PathState;
