@@ -10,6 +10,8 @@ import pygame.Surface in Surf;
 import pygame.hxpyg.Surface;
 import pygame.hxpyg.SurfaceAccessor;
 import pygame.hxpyg.Path;
+import pygame.FreeType;
+import pygame.FreeType.SysFont;
 
 import Math.round;
 
@@ -95,6 +97,15 @@ class DrawingContext implements SurfaceAccessor {
 	  */
 	public inline function createPath():Path {
 		return new Path(this);
+	}
+
+	/**
+	  * Draw some Text
+	  */
+	public function createTextRenderer(name:String, size:Int):TextRenderer {
+		if (!FreeType.was_init())
+			FreeType.init();
+		return new TextRenderer(name, size);
 	}
 
 /* === Instance Fields === */
