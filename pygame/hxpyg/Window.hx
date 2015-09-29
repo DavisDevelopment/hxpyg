@@ -15,9 +15,11 @@ import tannus.io.Signal;
 import tannus.io.EventDispatcher;
 import tannus.graphics.Color;
 
-class Window implements SurfaceAccessor {
+class Window extends EventDispatcher implements SurfaceAccessor {
 	/* Constructor Function */
 	public function new(w:Int, h:Int, ?info:WindowInfo):Void {
+		super();
+
 		if (info == null)
 			info = new WindowInfo();
 		//- initialize pygame libs
@@ -39,7 +41,10 @@ class Window implements SurfaceAccessor {
 	  * Initialize [this] Window
 	  */
 	private inline function __init():Void {
-		
+		addSignals([
+			'keydown',
+			'keyup'
+		]);
 	}
 
 	/**
@@ -56,8 +61,23 @@ class Window implements SurfaceAccessor {
 	private function _handleEvents(events : Array<pygame.Event>):Void {
 		for (e in events) {
 			switch (e) {
+				/* Window is Being Closed */
 				case Quit:
 					close();
+
+				/* Key is being pressed */
+				case Event.KeyDown(key, mods):
+					dispatch('keydown', {
+						'key': key,
+						'mods': mods
+					});
+
+				/* Key is being released */
+				case Event.KeyUp(key, mods):
+					dispatch('keyup', {
+						'key': key,
+						'mods': mods
+					});
 
 				default:
 					null;
